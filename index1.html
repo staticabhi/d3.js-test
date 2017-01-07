@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="/d3.v4.min.js"></script>
+	<script src="/dimple.v2.3.0.min.js"></script>
+	<style>
+	body{
+		margin: 50px;
+	}
+	</style>
+</head>
+
+<body>
+	<h2>Data Visualisation</h2>
+
+
+<!-- Survivors by class bar chart-->
+	<h2>Survivors by passengers Class(Bar)</h2>
+	<div id='chartContainer2'>
+		<script type="text/javascript">
+			var svg2=dimple.newSvg("#chartContainer2",600,400);
+			d3.csv('train_summ.csv',function(data){
+				//Creating a chart using svg and data
+				var ChartInstance=new dimple.chart(svg2,data);
+
+				//SET BOUNDS
+
+				ChartInstance.setBounds(60,30,510,305);
+
+				var x=ChartInstance.addCategoryAxis('x','Pclass');
+				x.addOrderRule('Type');
+
+				var y=ChartInstance.addPctAxis('y','Count');
+
+				var s=ChartInstance.addSeries('Status',dimple.plot.bar);
+
+				//add legend
+				ChartInstance.addLegend(60,10,510,20,'right');
+
+				ChartInstance.draw(1000);
+
+			});
+		</script>
+	</div>
+
+<!-- Passanger share of each class pie chart-->
+
+	<div id='pieChartContainer12'>
+	<h2>Passanger Share by Class</h2>
+	<script type="text/javascript">
+		var svg12=dimple.newSvg('#pieChartContainer12',590,400);
+		d3.csv('train.csv',function(data){
+			var ChartInstance=new dimple.chart(svg12,data);
+			ChartInstance.setBounds(20,20,460,360);
+
+			ChartInstance.addMeasureAxis('p','Pclass');
+			ChartInstance.addSeries('Pclass', dimple.plot.pie);
+			ChartInstance.addLegend(500,20,90,300,'left');
+			ChartInstance.draw();
+		});
+	</script>
+
+
+	</div>
+
+
+
+
+</body>
+</html>
